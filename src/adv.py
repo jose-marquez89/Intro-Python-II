@@ -47,7 +47,7 @@ def main():
         for c in text:
             sys.stdout.write(c)
             sys.stdout.flush()
-            time.sleep(0.1)
+            time.sleep(0.05)
 
         time.sleep(1)
 
@@ -60,6 +60,7 @@ def main():
         scary_print(g)
         sys.stdout.write('\r')
         sys.stdout.flush()
+        sys.stdout.write('\n')
 
     time.sleep(0.5)
     player_name: str = input("Please enter your name: ")
@@ -67,15 +68,17 @@ def main():
 
     # player_1 = Player(player_name, room["outside"])
     next_move = ''
-    # TODO: fully integrate the player class into this logic
+    print()
 
     while next_move.lower() != "q":
-        print(f"\r\n{player.name} is currently in {player.location.name}:")
+        print(f"{player.name} is currently in {player.location.name}:")
 
         # print the long description with wrapping
         for line in textwrap.wrap(f"{player.location.description}"):
             print('    |', line)
-        next_move = input("Where to next?\nEnter a cardinal direction: ")
+        next_move = input("Where to next?\nEnter a direction "
+                          "(n|e|s|w) or (q) to quit: ")
+        print('\n')
         no_go_message = "Oops, can't go there!"
         if next_move.lower() == "n":
             try:
@@ -111,7 +114,7 @@ def main():
         else:
             print("I don't think that's a valid command...")
             continue
-        print(f"Moving To {new_room.name}...", end='')
+        print(f"Moving To {new_room.name}...", end='\r')
         time.sleep(.60)
         player.update_location(new_room)
 
