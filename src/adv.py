@@ -1,8 +1,9 @@
+import sys
 import time
 import textwrap
 
 from room import Room
-# from player import Player
+from player import Player
 
 # Declare all the rooms
 
@@ -44,7 +45,8 @@ def main():
 
     def scary_print(text):
         for c in text:
-            print(c, end='')
+            sys.stdout.write(c)
+            sys.stdout.flush()
             time.sleep(0.1)
 
         time.sleep(1)
@@ -56,48 +58,49 @@ def main():
 
     for g in greetings:
         scary_print(g)
-        print('\r', end='')
+        sys.stdout.write('\r')
+        sys.stdout.flush()
+
     time.sleep(0.5)
     player_name: str = input("Please enter your name: ")
+    player = Player(player_name, room['outside'])
 
     # player_1 = Player(player_name, room["outside"])
     next_move = ''
-    current_room = room['outside']
-
-
+    # TODO: fully integrate the player class into this logic
 
     while next_move.lower() != "q":
-        print(f"\r\n{player_name} is currently in {current_room.name}:")
+        print(f"\r\n{player.name} is currently in {player.location.name}:")
 
         # print the long description with wrapping
-        for line in textwrap.wrap(f"{current_room.description}"):
+        for line in textwrap.wrap(f"{player.location.description}"):
             print('    |', line)
         next_move = input("Where to next?\nEnter a cardinal direction: ")
         no_go_message = "Oops, can't go there!"
         if next_move.lower() == "n":
             try:
-                new_room = current_room.n_to
+                new_room = player.location.n_to
                 no_room_error(new_room)
             except TypeError:
                 print(no_go_message)
                 continue
         elif next_move.lower() == "e":
             try:
-                new_room = current_room.e_to
+                new_room = player.location.e_to
                 no_room_error(new_room)
             except TypeError:
                 print(no_go_message)
                 continue
         elif next_move.lower() == "s":
             try:
-                new_room = current_room.s_to
+                new_room = player.location.s_to
                 no_room_error(new_room)
             except TypeError:
                 print(no_go_message)
                 continue
         elif next_move.lower() == "w":
             try:
-                new_room = current_room.w_to
+                new_room = player.location.w_to
                 no_room_error(new_room)
             except TypeError:
                 print(no_go_message)
@@ -105,9 +108,12 @@ def main():
         elif next_move.lower() == "q":
             print("Looks like your quest is over...")
             continue
+        else:
+            print("I don't think that's a valid command...")
+            continue
         print(f"Moving To {new_room.name}...", end='')
         time.sleep(.60)
-        current_room = new_room
+        player.update_location(new_room)
 
     print("Thanks for playing!")
 
