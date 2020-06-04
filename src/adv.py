@@ -132,13 +132,13 @@ def main():
         if len(next_move) == 1:
             if next_move[0] == "h":
                 print("Command Menu: ")
-                print("\th".rjust(10),
+                print("\th".ljust(20),
                       "---> open this menu")
-                print("\tn|e|s|w".rjust(10),
+                print("\tn|e|s|w".ljust(20),
                       "---> move in a cardinal direction")
-                print("\tgrab [item number]".rjust(10),
+                print("\tgrab [item number]".ljust(20),
                       "---> pick up an item in current room")
-                print("\tdrop".rjust(10),
+                print("\tdrop".ljust(20),
                       "---> abandon an item, opens drop menu")
                 input("Press Enter when finished to carry on. ")
                 continue
