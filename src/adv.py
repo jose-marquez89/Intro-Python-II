@@ -66,7 +66,6 @@ def main():
     player_name: str = input("Please enter your name: ")
     player = Player(player_name, room['outside'])
 
-    # player_1 = Player(player_name, room["outside"])
     next_move = ''
     print()
 
@@ -120,19 +119,6 @@ def main():
 
     print("Thanks for playing!")
 
-
-# Make a new player object that is currently in the 'outside' room.
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
 if __name__ == "__main__":
     main()
