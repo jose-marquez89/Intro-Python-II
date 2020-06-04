@@ -25,3 +25,6 @@ class Player:
         print("Your Items:")
         for idx, item in enumerate(self.inventory):
             print("\t", f"Item no. {idx}: {item}")
+
+    def __str__(self):
+        return self.name
