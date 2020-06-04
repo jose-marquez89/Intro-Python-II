@@ -3,27 +3,45 @@ import time
 import textwrap
 
 from room import Room
+from item import Item
 from player import Player
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",
+                     items=[
+                         Item("Rock", "Throw the rock to cause some damage"),
+                         Item("Sword", "A sharpened weapon for hand-to-hand combat"),
+                         Item("Magical Amulet", "The amulet makes you very lucky, adds protection")
+                     ]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",
+                     items=[
+                         Item("Map", "This map will lead you to the treasure")
+                     ]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",
+                     items=[
+                         Item("Holy Chalice", "This chalice grants you easy access to more coins")
+                     ]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",
+                     items=[
+                         Item("Torch", "The torch will help you see in dark places")
+                     ]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""",
+                     items=[
+                         Item("Treasure", "This is the prize you seek!")
+                     ]),
 }
 
 
@@ -75,6 +93,13 @@ def main():
         # print the long description with wrapping
         for line in textwrap.wrap(f"{player.location.description}"):
             print('    |', line)
+        # show items in location:
+        print("Items in this location:")
+        for item in player.location.items:
+            print('    |', item.name)
+            print("    |==========")
+            print('    |', item.description)
+            print('~~~~~~~~~~')
         next_move = input("Where to next?\nEnter a direction "
                           "(n|e|s|w) or (q) to quit: ")
         print('\n')
