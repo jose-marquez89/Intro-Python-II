@@ -1,3 +1,6 @@
+import time
+
+
 class Item:
 
     def __init__(self, name, description):
@@ -5,7 +8,14 @@ class Item:
         self.description = description
 
     def on_grab(self):
-        print(f"You picked up {self.name}!")
+        print(f"Picked up the {self.name}!", end='\r')
+        time.sleep(.80)
 
     def on_drop(self):
-        print(f"You've dropped {self.name}! It's no longer in your inventory")
+        print(
+          f"{self.name} was left behind!",
+          end='\r')
+        time.sleep(.80)
+
+    def __str__(self):
+        return self.name
